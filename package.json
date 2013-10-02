@@ -1,7 +1,7 @@
 {
   "name": "highlander",
   "version": "0.0.0",
-  "description": "Longest streak on github wins.",
+  "description": "Longest streak on github wins",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

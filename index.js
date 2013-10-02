@@ -1,12 +1,16 @@
 var express = require('express'),
-	http	= require('http');
+	http	= require('http'),
+	config	= require('./config'),
+	routes	= require('./routes');
 
 var app = express();
 
 app.set('views', __dirname + '/views');
-app.set('viewEngine', 'jade');
-app.use(express.static(__dirname + '/public'))
+app.set('view engine', 'jade');
+app.use(express.static(__dirname + '/public'));
 
-http.createServer(app).listen('', function() {
+app.get('/', routes.index);
+
+http.createServer(app).listen(config.port, function() {
 	console.log('Listening on port ' + config.port);
 });
