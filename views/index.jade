@@ -1,5 +1,9 @@
 !!!
 head
 	title= title
-	script(data-main='js/rjs-config', src='/js/libs/require.js')
+	link(rel='stylesheet', href='/css/one.css')
+	script(data-main='js/rjs-main', src='/js/libs/require.js')
 body
+	#arena
+		each dev in devs
+			.dev= dev
