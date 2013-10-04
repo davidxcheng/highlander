@@ -4,5 +4,6 @@ module.exports = {
 		'davidxcheng',
 		'karlbohlmark',
 		'jonniehedkvist'
-	]
+	],
+	url: 'https://github.com/'
 };
