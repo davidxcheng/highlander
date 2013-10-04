@@ -18,7 +18,7 @@ exports.index = function(req, res) {
 	map(config.devs, qRequest).done(function(x, devs) { 
 		var devs = x.map(function(y) {
 			var $ 		= cheerio.load(y[0].body);
-			var name	= $('span[itemprop=name]').text(),
+			var name	= $('*[itemprop=additionalName]').text(),
 				streak 	= $('.contrib-streak-current span.num').text();
 			
 			return {
