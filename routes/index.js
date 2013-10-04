@@ -3,28 +3,34 @@ exports.index = function(req, res) {
 	var config 	= require('../config'),
 		request = require('request'),
 		cheerio	= require('cheerio'),
-		q		= require('q');
+		Q		= require('q');
 
-	var getStreak = function(username) {
-		request(config.url + username, function(err, resp, html) {
-			var $ = cheerio.load(html);
-			console.log($('.contrib-streak-current span.num').text());
-			return $('.contrib-streak-current span.num').text();
+	var qRequest = Q.denodeify(request);
+
+	function map(arr, iterator) {
+		var promises = arr.map(function(el) { 
+			return iterator(config.url + el);
 		});
+
+		return Q.all(promises);
 	};
 
-	var devs = config.devs.map(function(name) {
-		var streak = getStreak(name);
-		return {
-			name: name,
-			streak: streak
-		};
+	map(config.devs, qRequest).done(function(x, devs) { 
+		var devs = x.map(function(y) {
+			var $ 		= cheerio.load(y[0].body);
+			var name	= $('span[itemprop=name]').text(),
+				streak 	= $('.contrib-streak-current span.num').text();
+			
+			return {
+				name: name,
+				streak: streak
+			};
+		});
+
+		res.render('index', { 
+				title: 'Highlander',
+				devs: devs
+		});
 	});
 
-	console.log(devs);
-
-	res.render('index', { 
-		title: 'Highlander',
-		devs: devs
-	});
 };
