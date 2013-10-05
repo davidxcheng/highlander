@@ -5,5 +5,9 @@ head
 	script(data-main='js/rjs-main', src='/js/libs/require.js')
 body
 	#arena
+		h1 HIGHSCORE
+		.dev.header PLAYER
+			span.streak.header DAYS
 		each dev in devs
-			.dev= dev.name + ' ' + dev.streak
+			.dev= dev.name
+				span.streak= dev.streak

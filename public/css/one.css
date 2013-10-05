@@ -2,25 +2,35 @@
   box-sizing: border-box;
 }
 @font-face {
-  font-family: 'League Gothic';
+  font-family: 'GnG';
   font-weight: normal;
   font-style: normal;
-  src: url("/fonts/league_gothic.woff") format('woff');
+  src: url("/fonts/ghouls_ghosts_and_goblins-_fontvir_us_.woff") format('woff');
 }
 html {
   font-size: 62.5%;
 }
 body {
   background: #000;
-  color: #fff;
-  font: 4rem 'League Gothic';
+  color: GhostWhite;
+  font: 1.8rem GnG;
 }
 #arena {
   max-width: 400px;
   margin: 20px auto;
 }
+h1 {
+  color: #f00;
+  text-align: center;
+  margin: 0;
+}
+.header {
+  color: #ff0;
+}
 .dev {
   margin: 4px;
-  text-align: center;
-  text-shadow: 2px 2px #808080;
+  text-transform: lowercase;
+}
+.streak {
+  float: right;
 }
