@@ -17,26 +17,29 @@ exports.index = function(req, res) {
 	};
 
 	// api for promise.then: .then(onFulfilled, onRejected, onProgress)
-	map(config.devs, qRequest).then(function(result) { 
-		var devs = result.map(function(y) {
-			var $ 		= cheerio.load(y[0].body);
-			var name	= $('*[itemprop=additionalName]').text(),
-				streak 	= $('.contrib-streak-current span.num').text().split(' ')[0];
-			
-			return {
-				name: name,
-				streak: streak
-			};
-		});
+	map(config.devs, qRequest)
+		.then(function(results) { 
+			var devs = results.map(function(y) {
+				var $ 		= cheerio.load(y[0].body);
+				var name	= $('*[itemprop=additionalName]').text(),
+					streak 	= $('.contrib-streak-current span.num').text().split(' ')[0];
+				
+				return {
+					name: name,
+					streak: streak
+				};
+			});
 
-		devs.sort(function(x, y) {
-			return x.streak < y.streak;
-		});
+			devs.sort(function(x, y) {
+				return x.streak < y.streak;
+			});
 
-		res.render('index', { 
+			return devs;
+		})
+		.done(function(devs) {
+			res.render('index', { 
 				title: 'Highlander',
 				devs: devs
+			});
 		});
-	});
-
 };
