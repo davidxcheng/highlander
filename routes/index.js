@@ -12,11 +12,13 @@ exports.index = function(req, res) {
 			return iterator(config.url + el);
 		});
 
+		// return a promise
 		return Q.all(promises);
 	};
 
-	map(config.devs, qRequest).done(function(x, devs) { 
-		var devs = x.map(function(y) {
+	// api for promise.then: .then(onFulfilled, onRejected, onProgress)
+	map(config.devs, qRequest).then(function(result) { 
+		var devs = result.map(function(y) {
 			var $ 		= cheerio.load(y[0].body);
 			var name	= $('*[itemprop=additionalName]').text(),
 				streak 	= $('.contrib-streak-current span.num').text().split(' ')[0];
